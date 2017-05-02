@@ -1,3 +1,18 @@
 <h1>Categories Admin Page</h1>
 
-{{outlet}}
+<form>
+    <label>ID:</label>
+        {{input value=newCategoryId}}
+    <label>NAME:</label>
+        {{input value=newCategoryName}}
+    <button type="submit" {{action 'addNewCategory' newCategoryId newCategoryName}}>Add</button>
+</form>
+
+<ul>
+    {{#each model as |category|}}
+        <li> ID: {{category.id}}, NAME: {{category.name}}</li>
+        <button {{action 'deleteCategory' category}}>Del</button>
+    {{/each}}
+</ul>
+
+Category Counter: {{model.length}}
