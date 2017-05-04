@@ -7,8 +7,15 @@ export default Ember.Route.extend({
     },
 
     actions: {
-        addNewCategory(id, name) {
-            this.store.createRecord('category', {id, name}).save();
+        addNewCategory(name) {
+      this.store.createRecord('category', { name }).save().then(
+        category => {
+          console.info('Response:', category);
+          this.controller.set('newCategoryName', '');
+        },
+        error => {
+          console.error('Error from server:', error);
+        });
         },
 
         deleteCategory(category) {
