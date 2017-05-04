@@ -12,7 +12,7 @@ export default Ember.Route.extend({
         },
 
         deleteCategory(category) {
-            category.destoryRecord();
+            category.destroyRecord();
         }
     }
 });

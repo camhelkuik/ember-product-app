@@ -1,11 +1,11 @@
 export default function() {
  this.namespace = '/api';
 
-this.get('/categories');
+// this.get('/categories');
 
-this.post('/categories');
+// this.post('/categories');
 
-this.del('/categories');
+// this.del('/categories/:id');
 
 this.resource('categories');
 
