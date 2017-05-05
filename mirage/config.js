@@ -8,6 +8,7 @@ export default function() {
 // this.del('/categories/:id');
 
 this.resource('categories');
+this.resource('products');
 
 
   // These comments are here to help you get started. Feel free to delete them.

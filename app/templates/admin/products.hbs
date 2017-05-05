@@ -1,0 +1,62 @@
+<h1>Admin - Products</h1>
+
+<div class="well well-sm">
+
+  <form class="form-inline" {{action 'addNewProduct' newProductName on='submit'}}>
+    <div class="form-group">
+      <label for="new-product">New product:</label>
+      {{input type="text" class="form-control" id="new-product" placeholder="Product name" value=newProductName}}
+    </div>
+    <button type="submit" class="btn btn-default">Add</button>
+  </form>
+</div>
+
+<table class="table table-striped">
+  <caption>List of products</caption>
+  <thead>
+  <tr>
+    <th>#</th>
+    <th>Name</th>
+    <th>sku</th>
+    <th>Unit Price</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  {{#each model as |product|}}
+      <tr>
+        <td>{{product.id}}</td>
+        <td {{action 'editProduct' product}}>
+          {{#if product.isEditing}}
+            {{input value=product.name}}
+            <button {{action 'updateProduct' product}}>Save</button>
+          {{else}}
+            {{product.name}}
+          {{/if}}
+        </td>
+        <td {{action 'editProduct' product}}>
+          {{#if product.isEditing}}
+            {{input value=product.sku}}
+            <button {{action 'updateProduct' product}}>Save</button>
+          {{else}}
+            {{product.sku}}
+          {{/if}}
+        </td>
+        <td {{action 'editProduct' product}}>
+          {{#if product.isEditing}}
+            {{input value=product.unitPrice}}
+            <button {{action 'updateProduct' product}}>Save</button>
+          {{else}}
+            {{product.unitPrice}}
+          {{/if}}
+        </td>
+        <td>
+          <button class="btn btn-xs btn-danger" {{action 'deleteProduct' product}}>Del</button>
+          <button class="btn btn-xs btn-success" {{action 'editProduct' product}}>Edit</button>
+        </td>
+      </tr>
+  {{/each}}
+  </tbody>
+</table>
+
+Number of products: {{model.length}}
