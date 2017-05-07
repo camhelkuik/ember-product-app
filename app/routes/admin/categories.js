@@ -27,6 +27,10 @@ export default Ember.Route.extend({
         category => category.set('isEditing', false)
       );
     },
+    cancelUpdateCategory(category){
+      category.set('isEditing', false);
+      category.rollbackAttributes();
+    },
 
         deleteCategory(category) {
             category.destroyRecord();

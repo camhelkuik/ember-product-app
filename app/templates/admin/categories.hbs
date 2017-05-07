@@ -27,14 +27,18 @@
         <td {{action 'editCategory' category}}>
           {{#if category.isEditing}}
             {{input value=category.name}}
-            <button {{action 'updateCategory' category}}>Save</button>
           {{else}}
             {{category.name}}
           {{/if}}
         </td>
         <td>
-          <button class="btn btn-xs btn-danger" {{action 'deleteCategory' category}}>Del</button>
-          <button class="btn btn-xs btn-success" {{action 'editCategory' category}}>Edit</button>
+          {{#if category.isEditing}}
+            <button class="btn btn-xs btn-success" {{action 'updateCategory' category}}>Save</button>
+            <button class="btn btn-xs btn-info" {{action 'cancelUpdateCategory' category}}>Cancel</button>
+          {{else}}
+            <button class="btn btn-xs btn-danger" {{action 'deleteCategory' category}}>Del</button>
+            <button class="btn btn-xs" {{action 'editCategory' category}}>Edit</button>
+          {{/if}}
         </td>
       </tr>
   {{/each}}
