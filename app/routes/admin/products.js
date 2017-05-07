@@ -7,11 +7,13 @@ export default Ember.Route.extend({
     },
 
     actions: {
-        addNewProduct(name){
-            this.store.createRecord('product', {name}).save().then(
+        addNewProduct(name, sku, unitPrice){
+            this.store.createRecord('product', {name, sku, unitPrice}).save().then(
                 product => {
           console.info('Response:', product);
           this.controller.set('newProductName', '');
+          this.controller.set('newProductSku', '');
+          this.controller.set('newProductPrice', '');
         },
         error => {
           console.error('Error from server:', error);
@@ -19,6 +21,10 @@ export default Ember.Route.extend({
         },
         editProduct(product) {
             product.set('isEditing', true);
+        },
+        cancelProductUpdate(product){
+            product.set('isEditing', false);
+            product.rollbackAttributes();
         },
         updateProduct(product){
             product.save().then(

@@ -2,10 +2,14 @@
 
 <div class="well well-sm">
 
-  <form class="form-inline" {{action 'addNewProduct' newProductName on='submit'}}>
+  <form class="form-inline" {{action 'addNewProduct' newProductName newProductSku newProductPrice on='submit'}}>
     <div class="form-group">
-      <label for="new-product">New product:</label>
-      {{input type="text" class="form-control" id="new-product" placeholder="Product name" value=newProductName}}
+      <label for="new-product">Product:</label>
+      {{input type="text" class="form-control" id="new-product-name" placeholder="Product name" value=newProductName}}
+      <label for="new-product">Sku:</label>
+      {{input type="text" class="form-control" id="new-product-sku" placeholder="SKU" value=newProductSku}}
+      <label for="new-product">Unit Price:</label>
+      {{input type="text" class="form-control" id="new-product-price" placeholder="Unit Price" value=newProductPrice}}
     </div>
     <button type="submit" class="btn btn-default">Add</button>
   </form>
@@ -29,7 +33,6 @@
         <td {{action 'editProduct' product}}>
           {{#if product.isEditing}}
             {{input value=product.name}}
-            <button {{action 'updateProduct' product}}>Save</button>
           {{else}}
             {{product.name}}
           {{/if}}
@@ -37,7 +40,6 @@
         <td {{action 'editProduct' product}}>
           {{#if product.isEditing}}
             {{input value=product.sku}}
-            <button {{action 'updateProduct' product}}>Save</button>
           {{else}}
             {{product.sku}}
           {{/if}}
@@ -45,14 +47,18 @@
         <td {{action 'editProduct' product}}>
           {{#if product.isEditing}}
             {{input value=product.unitPrice}}
-            <button {{action 'updateProduct' product}}>Save</button>
           {{else}}
             {{product.unitPrice}}
           {{/if}}
         </td>
         <td>
-          <button class="btn btn-xs btn-danger" {{action 'deleteProduct' product}}>Del</button>
-          <button class="btn btn-xs btn-success" {{action 'editProduct' product}}>Edit</button>
+          {{#if product.isEditing}}
+            <button class="btn btn-xs btn-success" {{action 'updateProduct' product}}>Save</button>
+            <button class="btn btn-xs btn-info" {{action 'cancelProductUpdate' product}}>Cancel</button>
+          {{else}}
+            <button class="btn btn-xs btn-danger" {{action 'deleteProduct' product}}>Del</button>
+            <button class="btn btn-xs" {{action 'editProduct' product}}>Edit</button>
+          {{/if}}
         </td>
       </tr>
   {{/each}}
