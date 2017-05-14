@@ -11,12 +11,20 @@
   </form>
 </div>
 
+{{#if newCategory.isError}}
+  Error!!
+  {{#each newCategory.errors as |error|}}
+    {{error}}
+  {{/each}}
+{{/if}}
+
 <table class="table table-striped">
   <caption>List of categories</caption>
   <thead>
   <tr>
     <th>#</th>
     <th>Name</th>
+    <th># of products</th>
     <th>Actions</th>
   </tr>
   </thead>
@@ -31,6 +39,7 @@
             {{category.name}}
           {{/if}}
         </td>
+        <td>{{category.products.length}}</td>
         <td>
           {{#if category.isEditing}}
             <button class="btn btn-xs btn-success" {{action 'updateCategory' category}}>Save</button>
@@ -44,5 +53,3 @@
   {{/each}}
   </tbody>
 </table>
-
-Number of categories: {{model.length}}

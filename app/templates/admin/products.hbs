@@ -11,9 +11,27 @@
       <label for="new-product">Unit Price:</label>
       {{input type="text" class="form-control" id="new-product-price" placeholder="Unit Price" value=newProductPrice}}
     </div>
+<div class="form-group">
+      <label for="category">Category:</label>
+      {{#x-select id="category" class="form-control" value=newProduct.category as |xs|}}
+        {{#each categories as |category|}}
+          {{#xs.option value=category}}
+            {{category.name}}
+          {{/xs.option}}
+        {{/each}}
+      {{/x-select}}
+    </div>
+
     <button type="submit" class="btn btn-default">Add</button>
   </form>
 </div>
+
+{{#if newProduct.isError}}
+  Error!!
+  {{#each newProduct.errors as |error|}}
+    {{error}}
+  {{/each}}
+{{/if}}
 
 <table class="table table-striped">
   <caption>List of products</caption>
@@ -23,6 +41,7 @@
     <th>Name</th>
     <th>sku</th>
     <th>Unit Price</th>
+    <th>Category</th>
     <th>Actions</th>
   </tr>
   </thead>
@@ -49,6 +68,19 @@
             {{input value=product.unitPrice}}
           {{else}}
             {{product.unitPrice}}
+          {{/if}}
+        </td>
+         <td {{action 'editProduct' product}}>
+          {{#if product.isEditing}}
+            {{#x-select value=product.category as |xs|}}
+              {{#each categories as |category|}}
+                {{#xs.option value=category}}
+                  {{category.name}}
+                {{/xs.option}}
+              {{/each}}
+            {{/x-select}}
+          {{else}}
+            {{product.category.name}}
           {{/if}}
         </td>
         <td>

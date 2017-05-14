@@ -2,21 +2,34 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 
-    model(){
-        return this.store.findAll('product');
-    },
+    model() {
+    return Ember.RSVP.hash({
+      products: this.store.findAll('product'),
+      categories: this.store.findAll('category')
+    });
+  },
+
+  setupController(controller, hash) {
+    const model = hash.products;
+    const categories = hash.categories;
+
+    this._super(controller, model);
+
+    controller.set('newProduct', this.store.createRecord('product'));
+    controller.set('categories', categories);
+  },
 
     actions: {
         addNewProduct(name, sku, unitPrice){
             this.store.createRecord('product', {name, sku, unitPrice}).save().then(
                 product => {
-          console.info('Response:', product);
+          console.info('Response:', product); // eslint-disable-line no-console
           this.controller.set('newProductName', '');
           this.controller.set('newProductSku', '');
           this.controller.set('newProductPrice', '');
         },
         error => {
-          console.error('Error from server:', error);
+          console.error('Error from server:', error); // eslint-disable-line no-console
             });
         },
         editProduct(product) {
