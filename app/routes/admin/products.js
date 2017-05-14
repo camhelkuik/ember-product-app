@@ -20,8 +20,8 @@ export default Ember.Route.extend({
   },
 
     actions: {
-        addNewProduct(name, sku, unitPrice){
-            this.store.createRecord('product', {name, sku, unitPrice}).save().then(
+        addNewProduct(name, sku, unitPrice, category){
+            this.store.createRecord('product', {name, sku, unitPrice, category}).save().then(
                 product => {
           console.info('Response:', product); // eslint-disable-line no-console
           this.controller.set('newProductName', '');
